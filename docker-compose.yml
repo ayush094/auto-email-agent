@@ -1,4 +1,13 @@
 services:
+  frontend:
+    build: ./frontend
+    container_name: react_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
     container_name: django_app
@@ -9,6 +18,8 @@ services:
       - .env
     environment:
       DB_ENGINE: postgres
+      EMAIL_USER: ${EMAIL_USER:-${MAIL_USER}}
+      EMAIL_PASS: ${EMAIL_PASS}
     depends_on:
       db:
         condition: service_healthy

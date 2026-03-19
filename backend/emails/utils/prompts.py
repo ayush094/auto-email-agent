@@ -8,6 +8,8 @@ Rules:
 - Personalize using sender_name.
 - Do not over-apologize.
 - Keep it clear and actionable.
+- Understand the sender's main question, request, or concern and answer that specific point directly.
+- If the sender asks a direct question, reply to that question instead of giving a generic support response.
 - Include a proper greeting, acknowledgement, clear response or resolution, and professional closing.
 - Return plain text only.
 - Do not include bullet points, markdown, placeholders, or commentary about the prompt.
@@ -19,7 +21,7 @@ Rules:
 def build_messages(payload, max_words=120):
     sender_name = payload.get("sender_name") or "there"
     tone_preference = payload["tone_preference"]
-    company_name = payload["company_name"]
+    company_name = payload.get("company_name") or "Support Team"
     email_content = payload["email_content"]
 
     user_prompt = f"""Email:
